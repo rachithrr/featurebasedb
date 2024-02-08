@@ -5360,12 +5360,12 @@ func (e *executor) executeIntersectShard(ctx context.Context, qcx *Qcx, index st
 
 	var other *Row
 	if len(c.Children) == 0 {
-		return nil, fmt.Errorf("empty Intersect query is currently not supported")
+		return NewRow(), fmt.Errorf("empty Intersect query is currently not supported")
 	}
 	for i, input := range c.Children {
 		row, err := e.executeBitmapCallShard(ctx, qcx, index, input, shard)
 		if err != nil {
-			return nil, err
+			return NewRow(), err
 		}
 
 		if i == 0 {
